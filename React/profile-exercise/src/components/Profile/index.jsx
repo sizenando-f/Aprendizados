@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 
 export default function Card(props) {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} {...props}>
       <Person name={props.name} img={props.img} />
       <Label text={props.bio} />
       <Label text={props.phone} />
