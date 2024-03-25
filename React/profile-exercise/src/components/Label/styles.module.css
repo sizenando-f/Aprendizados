@@ -1,0 +1,9 @@
+.label {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: 0.1rem solid #428cd1;
+  font-size: 1.1rem;
+}
