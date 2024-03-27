@@ -1,26 +1,35 @@
 #include <stdio.h>
+#include <math.h>
 
-int fat(int x){
-  if(x == 1){
-    return 1;
-  }
-
-  return x * fat(x-1);
-}
-
-float cos(int x, int n, int cont, int den){
-  if(cont == x){
-    if(cont%2 == 0){
-      return (x**2)/fat(den);
+double fat(int n) {
+    if(n == 1){
+      return 1;
     }
-    return (-(x**2)/fat(den));
-  }
 
-  return 1 - cos(x, n, cont + 1, den + 2)
-  
+    return n * fat(n - 1);
 }
 
-int main(){
-  printf("%d", fat(4));
-  return 0;
+double cosen(int x, int n) {
+    double res = 0.0;
+    int exp = 2;
+
+    for (int i = 1; i <= n; i++) {
+        if (i % 2 == 0) {
+            res += pow(x, exp) / fat(exp);
+        } else {
+            res -= pow(x, exp) / fat(exp);
+        }
+
+        exp += 2;
+    }
+
+    return res;
+}
+
+int main() {
+    double x = 0 * M_PI / 180;
+    double resultado = cosen(x, 20);
+    printf("Cosseno de %f graus: %f\n", x, resultado);
+
+    return 0;
 }
