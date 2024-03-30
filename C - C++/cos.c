@@ -9,10 +9,11 @@ double fat(int n) {
     return n * fat(n - 1);
 }
 
+double to_radian(int x) return dg * M_PI / 180; 
+
 double cosen(int dg, int n) {
     double res = 1.0;
     int exp = 2;
-    double x = dg * M_PI / 180;
 
     if(dg == 90 || dg == 270){
         return 0.0;
@@ -40,15 +41,50 @@ double cosen(int dg, int n) {
 }
 
 int main() {
-    int x, n;
-    printf("Insira o grau: ");
-    scanf("%d", &x);
-    printf("Insira o valor de N: ");
-    scanf("%d", &n);
+    int dg, n;
+    double x, resultado;
+    int entrada = 0;
+    do{
+        system("cls");
+        printf("---- COSSENO ----\n");
+        printf("1. GRAU         |\n");
+        printf("2. RADIANO      |\n");
+        printf("3. SAIR         |\n");
+        printf("-----------------\n");
+        printf("Escolha o tipo de entrada: ");
+        scanf("%d", &entrada);
 
-    double resultado = cosen(x, n);
+        switch (entrada){
+            case 1:
+                printf("Insira o grau: ");
+                scanf("%d", &dg);
+                printf("Insira o valor de N: ");
+                scanf("%d", &n);
+                x = to_radian(dg);
+                resultado = cosen(x, n);
+                break;
+            case 2:
+                printf("Insira o radiano: ");
+                scanf("%d", &x);
+                printf("Insira o valor de N: ");
+                scanf("%d", &n);
+                resultado = cosen(x, n);
+                break;
+            case 3:
+                printf("Encerrando programa...\n");
+                break;
+            default:
+                printf("Opcao invalida, tente novamente\n");
+                break;
+        }
+        printf("Cosseno de %d graus: %f\n", x, resultado);
+        system("pause");
+    }while(entrada != 3);
+    
 
-    printf("Cosseno de %d graus: %f\n", x, resultado);
+    
+
+
 
     return 0;
 }
