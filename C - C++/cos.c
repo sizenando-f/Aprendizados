@@ -25,10 +25,14 @@ double cosen_rad(double rad, int n) {
     }
 
     if(n > 100){
-        printf("\nERRO: Valor de N excedeu o limite, reduzindo para 100...\n");
+        printf("\033[0;31m");
+        printf("\n# ERRO: Valor de N excedeu o limite, reduzindo para 100...\n");
+        printf("\033[0;37m");
         n = 100;
     } else if(n < 0){
-        printf("\nERRO: Valor de N eh menor 0, aumentando para 1...\n");
+        printf("\033[0;31m");
+        printf("\n# ERRO: Valor de N eh menor 0, aumentando para 1...\n");
+        printf("\033[0;37m");
         n = 1;
     }
 
@@ -58,10 +62,14 @@ double cosen_dg(double dg, int n) {
     }
 
     if(n > 100){
-        printf("\nERRO: Valor de N excedeu o limite, reduzindo para 100...\n");
+        printf("\033[0;31m");
+        printf("\n# ERRO: Valor de N excedeu o limite, reduzindo para 100...\n");
+        printf("\033[0;37m");
         n = 100;
     } else if(n < 0){
-        printf("\nERRO: Valor de N eh menor 0, aumentando para 1...\n");
+        printf("\033[0;31m");
+        printf("\n# ERRO: Valor de N eh menor 0, aumentando para 1...\n");
+        printf("\033[0;37m");
         n = 1;
     }
 
@@ -87,40 +95,80 @@ int main() {
     int entrada = 0;
     do{
         system("cls");
-        printf("---- COSSENO ----\n");
-        printf("|1. GRAU        |\n");
-        printf("|2. RADIANO     |\n");
-        printf("|3. SAIR        |\n");
-        printf("-----------------\n");
+        printf("\033[0;37m");
+        printf("-=-=- COSSENO -=-=-\n");
+        printf("| 1. GRAU         |\n");
+        printf("| 2. RADIANO      |\n");
+        printf("| 3. SAIR         |\n");
+        printf("-=-=-=-=-=-=-=-=-=-\n");
         printf("Escolha o tipo de entrada: ");
+        printf("\033[1;37m");
         scanf("%d", &entrada);
+        printf("\033[0;37m");
         system("cls");
         switch (entrada){
             case 1:
                 printf("--- Insira o valor em grau (ex.: 90): ");
                 getchar();
+                printf("\033[1;37m");
                 scanf("%f", &dg);
-                printf("--- Insira o valor de N (max.: 100): ");
-                getchar();
-                scanf("%d", &n);
+                printf("\033[0;37m");
+                do{
+                    printf("--- Insira o valor de N (max.: 100): ");
+                    getchar();
+                    printf("\033[1;37m");
+                    scanf("%d", &n);
+                    printf("\033[0;37m");
+                    if(n == 0){
+                        printf("\033[0;31m");
+                        printf("# ERRO: Insira outro valor diferente de 0\n");
+                        printf("\033[0;37m");
+                    }
+                }while(n == 0);
                 resultado = cosen_dg(dg, n);
-                printf("\nCosseno de %.2f graus: %f\n\n", dg, resultado);
+                printf("\033[0;32m");
+                printf("\n-> Cosseno de %.2f graus:\033[1;32m %f\n\n", dg, resultado);
+                printf("\033[0;37m");
                 break;
             case 2:
-                printf("--- Insira o valor em radiano (ex.: 1.570796): ");
-                getchar();
-                scanf("%f", &x);
-                printf("--- Insira o valor de N (max.: 100): ");
-                getchar();
-                scanf("%d", &n);
+                do{
+                    printf("--- Insira o valor em radiano (ex.: 1.570796): ");
+                    getchar();
+                    printf("\033[1;37m");
+                    scanf("%f", &x);
+                    printf("\033[0;37m");
+                    if(x > 34 || x < -34){
+                        printf("\033[0;31m");
+                        printf("# ERRO: Insira um valor entre -34 e 34\n");
+                        printf("\033[0;37m");
+                    }
+                }while(x > 34);
+                do{
+                    printf("--- Insira o valor de N (max.: 100): ");
+                    getchar();
+                    printf("\033[1;37m");
+                    scanf("%d", &n);
+                    printf("\033[0;37m");
+                    if(n == 0){
+                        printf("\033[0;31m");
+                        printf("# ERRO: Insira outro valor diferente de 0\n");
+                        printf("\033[0;37m");
+                    }
+                } while(n == 0); 
                 resultado = cosen_rad(x, n);
-                printf("\nCosseno de %f graus: %f\n\n", x, resultado);
+                printf("\033[0;32m");
+                printf("\n-> Cosseno de %f graus:\033[1;32m %f\n\n", x, resultado);
+                printf("\033[0;37m");
                 break;
             case 3:
-                printf("\nEncerrando programa...\n");
+                printf("\033[1;32m");
+                printf("\nPrograma encerrado\n");
+                printf("\033[0;37m");
                 break;
             default:
+                printf("\033[0;31m");
                 printf("\nERRO: Opcao invalida, tente novamente\n");
+                printf("\033[0;37m");
                 break;
         }
         system("pause");
