@@ -26,12 +26,12 @@ double cosen_rad(double rad, int n) {
 
     if(n > 100){
         printf("\033[0;31m");
-        printf("\n[ #<- ] ERRO: Valor de N excedeu o limite, reduzindo para 100...\n");
+        printf("\n  [ #<- ] ERRO: Valor de N excedeu o limite, reduzindo para 100...\n");
         printf("\033[0;37m");
         n = 100;
     } else if(n < 0){
         printf("\033[0;31m");
-        printf("\n[ #<- ] ERRO: Valor de N eh menor 0, aumentando para 1...\n");
+        printf("\n  [ #<- ] ERRO: Valor de N eh menor 0, aumentando para 1...\n");
         printf("\033[0;37m");
         n = 1;
     }
@@ -95,17 +95,23 @@ int main() {
     int entrada = 0;
     do{
         system("cls");
+        printf(" ________  ________  ________   ________  _______   ________   ________\n");
+        printf("|\\   ____\\|\\   __  \\|\\   ____\\ |\\   ____\\|\\  ___ \\ |\\   ___  \\|\\   __  \\ \n");
+        printf("\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\___|_\\ \\  \\___|\\ \\   __/|\\ \\  \\\\ \\  \\ \\  \\|\\  \\ \n");
+        printf(" \\ \\  \\    \\ \\  \\\\\\  \\ \\_____  \\\\ \\_____  \\ \\  \\_|/_\\ \\  \\\\ \\  \\ \\  \\\\\\  \\ \n");
+        printf("  \\ \\  \\____\\ \\  \\\\\\  \\|____|\\  \\\\|____|\\  \\ \\  \\_|\ \\ \\  \\\\ \\  \\ \\  \\\\\\  \\ \n");
+        printf("   \\ \\_______\\ \\_______\\____\\_\\  \\ ____\\_\\  \\ \\_______\\ \\__\\\\ \\__\\ \\_______\\ \n");
+        printf("    \\|_______|\\|_______|\\_________\\\\_________\\|_______|\\|__| \\|__|\\|_______| \n");
+        printf("                       \\|_________\\|_________| \n");
         printf("\033[0;37m");
-        printf("===== COSSENO =====\n");
         printf("\033[0;34m[ 1 ]\033[0;37m GRAU\n");
         printf("\033[0;34m[ 2 ]\033[0;37m RADIANO\n");
         printf("\033[0;34m[ 3 ]\033[0;37m SAIR\n");
-        printf("===================\n");
+        printf("=============================\n");
         printf("Escolha o tipo de entrada > ");
         printf("\033[1;34m");
         scanf("%d", &entrada);
         printf("\033[0;37m");
-        system("cls");
         switch (entrada){
             case 1:
                 printf("[ <- ] Insira o valor em grau (ex.: 90) > ");
@@ -139,7 +145,7 @@ int main() {
                     printf("\033[0;37m");
                     if(x > 34 || x < -34){
                         printf("\033[0;31m");
-                        printf("[ #<- ] ERRO: Insira um valor entre -34 e 34\n");
+                        printf( "[ #<- ] ERRO: Insira um valor entre -34 e 34\n");
                         printf("\033[0;37m");
                     }
                 }while(x > 34);
