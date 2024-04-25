@@ -1,18 +1,39 @@
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
-class circularDinamicList(){
+class circularDinamicList{
   int *ptr;
-  int front, back;
+  int front;
+  int back;
   unsigned blockSize;
 
   void resizeBlock(unsigned newSize){
-
+    int *pAux = new int[newSize]; 
+    if(front < back){
+      memcpy(pAux, ptr + front, (back - front)*sizeof(int));
+      back = back - front + 1;
+      front = 0;
+    } else if(front > back) {
+      memcpy(pAux, ptr + front, (blockSize - front)*sizeof(int));
+      memcpy(pAux + blockSize - front, ptr, (back)*sizeof(int));
+      back = blockSize - front - back + 1;
+      front = 0;
+    }
+    delete [] ptr;
+    ptr = pAux;
+    blockSize = newSize;
   }
 
   public:
-    circularDinamicList(): blockSize(2), front(0), back(0), ptr(new int(blockSize)){};
+    circularDinamicList():front(0), back(0), blockSize(2){
+        ptr = new int[blockSize];
+    };
+
+    ~circularDinamicList(){
+      delete [] ptr;
+    }
 
     bool isEmpty() const {
       return front == back;
@@ -23,7 +44,7 @@ class circularDinamicList(){
     }
 
     int getBack() const {
-      return ptr[back];
+      return ptr[back-1];
     }
 
     void pushFront(int elem){
@@ -50,7 +71,7 @@ class circularDinamicList(){
     bool popFront(){
       int nElem = 0;
       if(front < back){ 
-        nElem = back - front
+        nElem = back - front;
       } else if(front > back){
         nElem = blockSize - (front - back);
       } else {
@@ -66,8 +87,9 @@ class circularDinamicList(){
     }
 
     bool popBack(){
+      int nElem = 0;
       if(front < back){ 
-        nElem = back - front
+        nElem = back - front;
       } else if(front > back){
         nElem = blockSize - (front - back);
       } else {
@@ -81,9 +103,27 @@ class circularDinamicList(){
       back = back == 0 ? blockSize - 1 : back - 1;
       return true;
     }
+
+    void print(){
+      cout << "F: " << front << ", B: " << back << ", blockSize: " << blockSize << endl;
+      for(int i = 0; i < blockSize; i++){
+        cout << ptr[i] << ", ";
+      }
+      cout << endl;
+    }
 };
 
 int main(){
+  circularDinamicList cList;
+
+  // cList.pushBack(1);
+  // cList.pushBack(2);
+  cList.pushBack(1);
+  cList.pushFront(2);
+  cList.pushFront(3);
+  cList.pushFront(4);
+  cList.pushBack(5);
+  cList.print();
 
   return 0;
 }
