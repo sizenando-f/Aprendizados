@@ -53,15 +53,33 @@ class circularDinamicList(){
         nElem = back - front
       } else if(front > back){
         nElem = blockSize - (front - back);
+      } else {
+        return false;
       }
 
-      if(blockSize/4 > nElem){
+      if((blockSize-1)/2 > nElem){
         resizeBlock(blockSize/2);
       }
+
+      front = (front + 1) % blockSize; //! ERRO AQUI, SEMPRE VAI RESETAR O FRONT QUANDO PUSHBACK FOR CHAMADO MESMO QUE NÃO ESTEJA NO COMEÇO
+      return true;
     }
 
     bool popBack(){
+      if(front < back){ 
+        nElem = back - front
+      } else if(front > back){
+        nElem = blockSize - (front - back);
+      } else {
+        return false;
+      }
 
+      if((blockSize-1)/2 > nElem){
+        resizeBlock(blockSize/2);
+      }
+
+      back = back == 0 ? blockSize - 1 : back - 1;
+      return true;
     }
 };
 
