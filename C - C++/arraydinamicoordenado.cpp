@@ -7,6 +7,8 @@ class OrderedDinamicArray {
   unsigned size;  // Tamanho do vetor
   unsigned nElem; // Número de elementos
   int *_data; // Ponteiro para vetor
+  int inicio;
+  int fim;
 
   void resize(unsigned newSize){
     int *pAux = new int[newSize];
@@ -24,8 +26,17 @@ class OrderedDinamicArray {
       b = aux;
   }
 
+  void restartList(){
+    fim = nElem;
+    resize(size*2);
+    inicio = size-1;
+    for(int i = fim; i < size-1; i++){
+      _data[i] = 0;
+    }
+  }
+
 public:
-  OrderedDinamicArray(): size(2), _data(new int[size]), nElem(0){
+  OrderedDinamicArray(): size(2), _data(new int[size]), nElem(0), inicio(0), fim(1){
   }
 
   ~OrderedDinamicArray(){
@@ -99,10 +110,90 @@ public:
         _data[i] =  _data[i + 1];
       }
       --nElem;
-     if(size > 0 && size-nElem > size/2){
+    if(size > 0 && size-nElem > size/2){
         resize(size/2);
     }
     }
+  }
+
+  void insertBegin(int valor){
+    if(nElem == 0){
+      _data[inicio] = valor;
+      nElem++;
+      inicio--;
+      return;
+    }
+
+    if(inicio < 0){
+      inicio = size-1;
+    }
+
+    if(nElem == size) restartList();
+    
+    _data[inicio] = valor;
+    inicio--;
+
+    nElem++;
+  }
+
+  void insertEnd(int valor){
+    if(nElem == 0){
+      _data[inicio] = valor;
+      nElem++;
+      inicio--;
+      return;
+    }
+
+    if(nElem == size) restartList();
+
+    _data[fim] = valor;
+    fim++;
+    if(fim >= size){
+      fim = 0;
+    }
+    
+    nElem++;
+  }
+
+  void removeEnd(){
+    fim--;
+    _data[fim] = 0;
+
+    while(inicio > fim){
+      _data[fim] = _data[inicio];
+      _data[inicio] = 0;
+      inicio++;
+      fim++;
+      if(inicio >= size){
+        inicio = 0;
+      }
+    }
+
+    if(size-nElem > size/2){
+      resize(size/2);
+    }
+
+    inicio = size-1;
+  }
+
+  void removeBegin(){
+    int aux = 0;
+    _data[inicio] = 0;
+    inicio++;
+
+    while(inicio != fim){
+      _data[aux] = _data[inicio];
+      _data[inicio] = 0;
+      inicio++;
+      aux++;
+    }
+
+    if(size-nElem > size/2){
+      resize(size/2);
+    }
+
+    inicio = size-1;
+    fim = nElem;
   }
 };
 
@@ -110,18 +201,22 @@ int main(){
   int i;
   OrderedDinamicArray vet;
 
-  for(i = 5; i > 0; i--){
-    vet.insert(i);
-  }
+  // for(i = 5; i > 0; i--){
+  //   vet.insert(i);
+  // }
   
-  vet.removeMin();
-  vet.removeMin();
+  // vet.removeMin();
+  // vet.removeMin();
 
-  for(i = 0; i < vet.getNElem(); i++){
+  
+
+
+  cout << "Tamanho do vetor: " << vet.getSize() << endl;
+
+  for(i = 0; i < vet.getSize(); i++){
     cout << vet.at(i) << ' ';
   }
   
-  cout << endl << vet.getSize();
 
   return 0;
 }
