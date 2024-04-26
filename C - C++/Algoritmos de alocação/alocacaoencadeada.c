@@ -14,7 +14,22 @@ void inserir(struct Lista **inicio, int num){
 }
 
 void remover(struct Lista **inicio, int num){
-  
+  struct Lista *ptr = *inicio;
+  struct Lista *ant = NULL;
+
+  while(ptr != NULL){
+    if(ptr->num == num){
+      if(ant == NULL){
+        *inicio = ptr->prox;
+      } else {
+        ant->prox = ptr->prox;
+      }
+      free(ptr);
+      return;
+    }
+    ant = ptr;
+    ptr = ptr->prox;
+  }
 }
 
 int main(){
@@ -24,6 +39,7 @@ int main(){
   inserir(&L, 1);
   inserir(&L, 2);
   inserir(&L, 3);
+  remover(&L, 1);
 
   p = L;
   while(p != NULL){
