@@ -114,6 +114,7 @@ class circularDinamicList{
 };
 
 int main(){
+  // ! 5 sobrescreveu o 2
   circularDinamicList cList;
 
   // cList.pushBack(1);
