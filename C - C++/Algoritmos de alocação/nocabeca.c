@@ -11,6 +11,17 @@ void inicializa(struct Lista **inicio){
   (*inicio)->prox = NULL;
 }
 
+void finaliza(struct Lista **inicio){
+  struct Lista *ptr = *inicio;
+  struct Lista *no;
+
+  while(ptr != NULL){
+    no = ptr;
+    ptr = ptr->prox;
+    free(no);
+  }
+}
+
 void buscaEnc(int x, struct Lista **L, struct Lista **ant, struct Lista **pont){
   *ant = *L;
   *pont = NULL;
@@ -42,27 +53,56 @@ void insereNo(int x, struct Lista **L){
   }
 }
 
+void removeNo(int x, struct Lista **L){
+  struct Lista *ant, *pont;
+  buscaEnc(x, L, &ant, &pont);
+
+  if(pont != NULL){
+    ant->prox = pont->prox;
+    free(pont);
+  } else {
+    printf("Elemento nao esta na tabela\n");
+  }
+}
+
 int main(){
-  
-  struct Lista *inicio;
-  inicializa(&inicio);
+  struct Lista *ptr1, *ptr2;
+  inicializa(&ptr1);
+  inicializa(&ptr2);
 
-  insereNo(1, &inicio);
-  insereNo(4, &inicio);
-  insereNo(2, &inicio);
-  insereNo(3, &inicio);
-  insereNo(1, &inicio);
-  insereNo(3, &inicio);
-  insereNo(6, &inicio);
-  insereNo(5, &inicio);
+  insereNo(1, &ptr1);
+  insereNo(4, &ptr1);
+  insereNo(2, &ptr1);
+  insereNo(3, &ptr1);
+  insereNo(1, &ptr1);
+  insereNo(3, &ptr1);
+  insereNo(6, &ptr1);
+  insereNo(5, &ptr1);
+  removeNo(6, &ptr1);
+  removeNo(4, &ptr1);
+  insereNo(4, &ptr1);
+  removeNo(9, &ptr1);
 
-  struct Lista *p = inicio->prox;
+  insereNo(7, &ptr2);
+  insereNo(5, &ptr2);
 
-  while(p != NULL){
-    printf("%d -> ", p->chave);
-    p = p->prox;
+  struct Lista *p1 = ptr1->prox;
+
+  while(p1 != NULL){
+    printf("%d -> ", p1->chave);
+    p1 = p1->prox;
   }
 
-  free(inicio);
+  printf("\n\n");
+
+  struct Lista *p2 = ptr2->prox;
+
+  while(p2 != NULL){
+    printf("%d -> ", p2->chave);
+    p2 = p2->prox;
+  }
+
+  finaliza(&ptr1);
+  finaliza(&ptr2);
   return 0;
 }
