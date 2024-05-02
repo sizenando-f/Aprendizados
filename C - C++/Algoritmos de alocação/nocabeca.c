@@ -6,6 +6,11 @@ struct Lista {
   struct Lista *prox;
 };
 
+void inicializa(struct Lista **inicio){
+  *inicio = (struct Lista *) malloc(sizeof(struct Lista));
+  (*inicio)->prox = NULL;
+}
+
 void buscaEnc(int x, struct Lista **L, struct Lista **ant, struct Lista **pont){
   *ant = *L;
   *pont = NULL;
@@ -16,6 +21,7 @@ void buscaEnc(int x, struct Lista **L, struct Lista **ant, struct Lista **pont){
       ptr = ptr->prox;
     } else if(ptr->chave == x){
       *pont = ptr;
+      return;
     } else {
       ptr = NULL;
     }
@@ -25,6 +31,7 @@ void buscaEnc(int x, struct Lista **L, struct Lista **ant, struct Lista **pont){
 void insereNo(int x, struct Lista **L){
   struct Lista *ant, *pont;
   buscaEnc(x, L, &ant, &pont);
+
   if(pont == NULL){
     struct Lista *pt = malloc(sizeof(struct Lista));
     pt->chave = x;
@@ -36,8 +43,26 @@ void insereNo(int x, struct Lista **L){
 }
 
 int main(){
+  
   struct Lista *inicio;
-  struct Lista no;
-  no->
+  inicializa(&inicio);
+
+  insereNo(1, &inicio);
+  insereNo(4, &inicio);
+  insereNo(2, &inicio);
+  insereNo(3, &inicio);
+  insereNo(1, &inicio);
+  insereNo(3, &inicio);
+  insereNo(6, &inicio);
+  insereNo(5, &inicio);
+
+  struct Lista *p = inicio->prox;
+
+  while(p != NULL){
+    printf("%d -> ", p->chave);
+    p = p->prox;
+  }
+
+  free(inicio);
   return 0;
 }
