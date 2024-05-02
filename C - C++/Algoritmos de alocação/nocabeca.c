@@ -85,6 +85,8 @@ int main(){
 
   insereNo(7, &ptr2);
   insereNo(5, &ptr2);
+  insereNo(9, &ptr2);
+  insereNo(1, &ptr2);
 
   struct Lista *p1 = ptr1->prox;
 
