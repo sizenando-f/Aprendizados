@@ -42,7 +42,6 @@ void buscaEnc(int x, struct Lista **L, struct Lista **ant, struct Lista **pont){
 void insereNo(int x, struct Lista **L){
   struct Lista *ant, *pont;
   buscaEnc(x, L, &ant, &pont);
-
   if(pont == NULL){
     struct Lista *pt = malloc(sizeof(struct Lista));
     pt->chave = x;
@@ -65,10 +64,22 @@ void removeNo(int x, struct Lista **L){
   }
 }
 
+void imprimeNo(struct Lista **L){
+  struct Lista *ptr = *L;
+  if((*L) == NULL){
+    return;
+  }
+
+  printf("%d -> ", (*L)->chave);
+
+  imprimeNo(&ptr->prox);
+}
+
 int main(){
   struct Lista *ptr1, *ptr2;
   inicializa(&ptr1);
   inicializa(&ptr2);
+
 
   insereNo(1, &ptr1);
   insereNo(4, &ptr1);
@@ -89,20 +100,10 @@ int main(){
   insereNo(1, &ptr2);
 
   struct Lista *p1 = ptr1->prox;
-
-  while(p1 != NULL){
-    printf("%d -> ", p1->chave);
-    p1 = p1->prox;
-  }
-
+  imprimeNo(&p1);
   printf("\n\n");
 
-  struct Lista *p2 = ptr2->prox;
-
-  while(p2 != NULL){
-    printf("%d -> ", p2->chave);
-    p2 = p2->prox;
-  }
+  // struct Lista *p2 = ptr2->prox;
 
   finaliza(&ptr1);
   finaliza(&ptr2);
