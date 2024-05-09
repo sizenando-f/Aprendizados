@@ -13,10 +13,10 @@ void insereLista(int vet[], int pilha, int x, int *topo1, int *topo2){
     return;
   }
 
-  if(pilha){
+  if(pilha){ // 1 = Esquerda
     *topo1 = *topo1 + 1;
     vet[*topo1] = x;
-  }else{
+  }else{  // 0 = Direita
     vet[*topo2] = x;
     *topo2 = *topo2 - 1;
   }
@@ -29,9 +29,19 @@ int main(){
   inicializa(vet);
 
   insereLista(vet, 0, 10, &topo1, &topo2);
+  insereLista(vet, 0, 12, &topo1, &topo2);
+  insereLista(vet, 1, 2, &topo1, &topo2);
+  insereLista(vet, 1, 9, &topo1, &topo2);
+  insereLista(vet, 1, 1, &topo1, &topo2);
+  insereLista(vet, 1, 29, &topo1, &topo2);
+  insereLista(vet, 1, 3, &topo1, &topo2);
+  insereLista(vet, 1, 5, &topo1, &topo2);
+  insereLista(vet, 1, 7, &topo1, &topo2);
+  insereLista(vet, 1, 99, &topo1, &topo2);
+
 
   for(int i = 0; i < tam; i++){
-    printf("")
+    printf("%d - ", vet[i]);
   }
   return 0;
 }
