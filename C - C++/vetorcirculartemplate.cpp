@@ -3,21 +3,22 @@
 
 using namespace std;
 
+template <class T = int>
 class circularDinamicList{
-  int *ptr;
+  T *ptr;
   int front;
   int back;
   unsigned blockSize;
 
   void resizeBlock(unsigned newSize){
-    int *pAux = new int[newSize]; 
+    T *pAux = new T[newSize]; 
     if(front < back){
-      memcpy(pAux, ptr + front, (back - front)*sizeof(int));
+      memcpy(pAux, ptr + front, (back - front)*sizeof(T));
       back = back - front + 1;
       front = 0;
     } else if(front > back) {
-      memcpy(pAux, ptr + front, (blockSize - front)*sizeof(int));
-      memcpy(pAux + blockSize - front, ptr, (back)*sizeof(int));
+      memcpy(pAux, ptr + front, (blockSize - front)*sizeof(T));
+      memcpy(pAux + blockSize - front, ptr, (back)*sizeof(T));
       back = blockSize - front - back + 1;
       front = 0;
     }
@@ -28,7 +29,7 @@ class circularDinamicList{
 
   public:
     circularDinamicList():front(0), back(0), blockSize(2){
-        ptr = new int[blockSize];
+        ptr = new T[blockSize];
     };
 
     ~circularDinamicList(){
@@ -39,15 +40,15 @@ class circularDinamicList{
       return front == back;
     }
 
-    int getFront() const {
+    T getFront() const {
       return ptr[front];
     }
 
-    int getBack() const {
+    T getBack() const {
       return ptr[back-1];
     }
 
-    void pushFront(int elem){
+    void pushFront(T elem){
       if((back+1) % blockSize == front){
         resizeBlock(blockSize*2);
       }
@@ -58,7 +59,7 @@ class circularDinamicList{
       ptr[front] = elem;
     }
     
-    void pushBack(int elem){
+    void pushBack(T elem){
       if((back+1) % blockSize == front){
         resizeBlock(blockSize*2);
       }
@@ -115,7 +116,7 @@ class circularDinamicList{
 
 int main(){
   // ! 5 sobrescreveu o 2
-  circularDinamicList cList;
+  circularDinamicList<int> cList;
 
   // cList.pushBack(1);
   // cList.pushBack(2);
