@@ -21,14 +21,6 @@ class FacNumber{
     int getNum() const {
       return num;
     }
-    FacNumber mult(FacNumber other) const {
-      FacNumber ret;
-
-      ret.num = num * other.num;  // Faz parte da mesma classe, não precisa do this ou set/get
-      ret.den = den * other.den;
-
-      return ret;
-    }
 
     FacNumber operator=(FacNumber other){
       num = other.num;
@@ -36,12 +28,54 @@ class FacNumber{
 
       return FacNumber(num+1, den);
     }
+
+    FacNumber operator*(FacNumber other) const {
+      return FacNumber(num * other.num, den * other.den);
+    }
+
+    FacNumber operator+(FacNumber other) const {
+      return FacNumber(num * other.den + other.num * den, den * other.den);
+    }
+
+    FacNumber operator++(){ // Pré-fixado
+      num += den;
+      return FacNumber(num, den);
+    }
+
+    FacNumber operator++(int){ // Pós-fixado
+      num += den;
+      return FacNumber(num-den, den);
+    }
+
+    bool operator==(FacNumber other) const {
+      return num/den == other.num/other.den; 
+    }
+
+    bool operator!=(FacNumber other) const {
+      return num/den != other.num/other.den; // return !operator ==(other) | return !(*this==other);
+    }
+
+    bool operator>(FacNumber other) const {
+      return num/den > other.num/other.den;
+    }
+
+    bool operator<(FacNumber other) const {
+      return num/den < other.num/other.den;
+    }
+
+    bool operator>=(FacNumber other) const {
+      return num/den >= other.num/other.den;
+    }
+
+    bool operator<=(FacNumber other) const {
+      return num/den <= other.num/other.den;
+    }
 };
 
 int main(){
-  FacNumber f1(1,2), f2, f3;
+  FacNumber f1(1,2), f2(1, 2), f3;
   
-  f3 = f2 = f1;
+  f3 = ++f1;
 
   cout << f3.getNum() << '/' << f3.getDen() << endl;
   return 0;
