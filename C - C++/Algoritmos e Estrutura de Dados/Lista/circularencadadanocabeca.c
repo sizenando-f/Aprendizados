@@ -67,6 +67,18 @@ void alteraInfo(struct Lista **inicio, int no, int novaInfo){
   }
 }
 
+// Algoritmo de alteração do campo chave
+void alteraChave(struct Lista **inicio, int no, int novaChave){
+  struct Lista *p = (*inicio)->prox;
+  while(p != (*inicio)){
+    if(p->valor == no){
+      p->valor = novaChave;
+      return;
+    }
+    p = p->prox;
+  }
+}
+
 int main(){
   struct Lista *L = NULL;
   iniciliza(&L);
