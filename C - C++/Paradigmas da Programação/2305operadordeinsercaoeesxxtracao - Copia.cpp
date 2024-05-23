@@ -37,27 +37,25 @@ class DPilha{
     return vet[topo-1];
   }
 
+  DPilha& operator<<(const T &val){
+    push(val);
+    return *this;
+  }
+
+  DPilha& operator>>(T &val){
+    val = top();
+    pop();
+    return *this;
+  }
+
 };
 
 int main(){
   DPilha<int> iPilha;
-  DPilha<char> cPilha('x');
-  DPilha<> defPilha;
-
-  for(int i = 0; i < 5; i++){
-    iPilha.push(i);
-  }
-
-  cout << "iPilha: ";
-  for(int i = 0; i < 5; i++){
-    cout << iPilha.top() << ", ";
-    iPilha.pop();
-  }
-
-  cout << "\ncPilha: ";
-  for(int i = 0; i < 5; i++){
-    cout << cPilha.top() << ", ";
-    cPilha.pop();
-  }
+  int num1, num2, num3;
+  
+  iPilha << 10 << 8 << 5;
+  iPilha >> num1 >> num2 >> num3;
+  cout << num1 << ' ' << num2 << ' ' << num3 << endl;
   return 0;
 }
