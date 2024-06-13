@@ -30,7 +30,7 @@ class BigInt{
     result.vNum.clear();
     while(i < vNum.size() && j < other.vNum.size()){
       result.vNum.push_back((vNum[i] + other.vNum[j] + transport) % 10);
-      transport = (vNum[i] + other.vNum[j]) / 10;
+      transport = (vNum[i] + other.vNum[j] + transport) / 10;
       ++i; 
       ++j;
     }
@@ -92,15 +92,23 @@ class BigInt{
     return result;
   }
 
+  BigInt fat(const unsigned &num) const {
+    BigInt myInt(1);
+
+    for(unsigned i = 1; i <= num; i++){
+      myInt = myInt * i;
+    }
+
+    return myInt;
+  }
+
 };
 
 int main(){
-  BigInt myInt1(1);
+  BigInt myInt;
 
-  for(unsigned i = 1; i <= 1000; i++){
-    myInt1 = myInt1 * i;
-  }
+  myInt = myInt.fat(1000);
 
-  cout << (string) myInt1;
+  cout << (string) myInt;
   return 0;
 }
