@@ -1,7 +1,6 @@
 
 #include <iostream>
 using namespace std;
-
 template <class T = int>
 class DPilha{
   T vet[5];
