@@ -23,7 +23,7 @@ class Lista{
       }
     }
 
-    void insereNo(int valor){
+    void insereNo(const int valor){
       No* novoNo = new No(valor);
       if(head == NULL){
         head = novoNo;
@@ -36,7 +36,7 @@ class Lista{
       }
     }
 
-    int removeNo(int valor){
+    int removeNo(const int valor){
       if(head == NULL) return 0;
       No *temp = head, *temp2 = NULL;
 
@@ -60,7 +60,7 @@ class Lista{
       return 0;
     }
 
-    void exibir(){
+    void exibir() const {
       No *temp = head;
       while(temp != NULL){
         cout << temp->valor << ' ';
