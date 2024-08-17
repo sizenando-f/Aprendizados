@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/sizen/OneDrive/Área de Trabalho/Ciencia da Computação/Aprendizados/Aprendizados/C - C++/Paradigmas da Programação/08",
-      "program": "c:/Users/sizen/OneDrive/Área de Trabalho/Ciencia da Computação/Aprendizados/Aprendizados/C - C++/Paradigmas da Programação/08/build/Debug/outDebug",
+      "cwd": "c:/Users/sizen/OneDrive/Área de Trabalho/Ciencia da Computação/Aprendizados/Aprendizados/C - C++/Paradigmas da Programação",
+      "program": "c:/Users/sizen/OneDrive/Área de Trabalho/Ciencia da Computação/Aprendizados/Aprendizados/C - C++/Paradigmas da Programação/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
