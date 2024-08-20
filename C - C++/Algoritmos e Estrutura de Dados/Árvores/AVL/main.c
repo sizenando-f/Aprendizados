@@ -137,6 +137,79 @@ void exibe(struct No *raiz) {
     }
 }
 
+void removeAVL(int x, struct No **ptr, int *h) {
+    if (*ptr == NULL) {
+        return;
+    } else if (x < (*ptr)->chave) {
+        removeAVL(x, &(*ptr)->esq, h);
+        if (*h) {
+            switch ((*ptr)->bal) {
+                case -1:
+                    (*ptr)->bal = 0;
+                    break;
+                case 0:
+                    (*ptr)->bal = 1;
+                    *h = 0;
+                    break;
+                case 1:
+                    caso2(ptr, h);  // Rebalanceamento
+                    break;
+            }
+        }
+    } else if (x > (*ptr)->chave) {
+        removeAVL(x, &(*ptr)->dir, h);
+        if (*h) {
+            switch ((*ptr)->bal) {
+                case 1:
+                    (*ptr)->bal = 0;
+                    break;
+                case 0:
+                    (*ptr)->bal = -1;
+                    *h = 0;
+                    break;
+                case -1:
+                    caso1(ptr, h);  // Rebalanceamento
+                    break;
+            }
+        }
+    } else {  // Encontrou o nó a ser removido
+        struct No *aux;
+        if ((*ptr)->esq == NULL) {
+            aux = *ptr;
+            *ptr = (*ptr)->dir;
+            free(aux);
+            *h = 1;
+        } else if ((*ptr)->dir == NULL) {
+            aux = *ptr;
+            *ptr = (*ptr)->esq;
+            free(aux);
+            *h = 1;
+        } else {  // Nó com dois filhos
+            aux = (*ptr)->dir;
+            while (aux->esq != NULL) {
+                aux = aux->esq;
+            }
+            (*ptr)->chave = aux->chave;
+            removeAVL(aux->chave, &(*ptr)->dir, h);
+            if (*h) {
+                switch ((*ptr)->bal) {
+                    case 1:
+                        (*ptr)->bal = 0;
+                        break;
+                    case 0:
+                        (*ptr)->bal = -1;
+                        *h = 0;
+                        break;
+                    case -1:
+                        caso1(ptr, h);  // Rebalanceamento
+                        break;
+                }
+            }
+        }
+    }
+}
+
+
 int main() {
     struct No *raiz = NULL;
     int h = 0;
@@ -150,7 +223,16 @@ int main() {
     printf("Inserindo 5...\n");
     insAVL(5, &raiz, &h);
 
-    printf("Árvore AVL: \n");
+    printf("Removendo 10...\n");
+    removeAVL(10, &raiz, &h);
+
+    printf("Removendo 5...\n");
+    removeAVL(5, &raiz, &h);
+
+    printf("Removendo 2...\n");
+    removeAVL(2, &raiz, &h);
+
+    printf("Arvore AVL: \n");
     exibe(raiz);
     printf("\n");
 
