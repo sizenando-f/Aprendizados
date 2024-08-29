@@ -5,7 +5,7 @@ void vetorOrdenado::insert(int n){
   int aux;
 
   push_back(n);
-  i = size() - 1;
+  i = (unsigned int) size() - 1;
 
   while(i > 0){
     if(at(i) < at(i - 1)){
