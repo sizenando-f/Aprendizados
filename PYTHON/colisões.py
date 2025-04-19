@@ -34,6 +34,7 @@ while True:
     ret_vermelho = pygame.draw.rect(tela, (255, 0, 0), (x_vermelho, y_vermelho, 40, 50))
     ret_azul = pygame.draw.rect(tela, (0, 0, 255), (x_azul, y_azul, 40, 50))
 
+    # O retângulo azul muda de posição quando o retângulo vermelho colide com ele
     if ret_vermelho.colliderect(ret_azul):
         x_azul = randint(0, largura - 40)
         y_azul = randint(0, altura - 50)
