@@ -57,5 +57,5 @@ while True:
     
     # Desenha o texto na tela, os parâmetros são: texto, posição (x, y)
     tela.blit(texto_formatado, (largura - 210, 20))
-
+    
     pygame.display.update()
