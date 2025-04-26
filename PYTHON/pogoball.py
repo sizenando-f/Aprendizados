@@ -119,7 +119,12 @@ while True:
             player_x += velocidade
 
     # Movendo a máquina
-    maquina_x = bola_x
+    if direcao_y < 0:
+        if maquina_x < bola_x:
+            maquina_x += velocidade * 0.8
+        if maquina_x > bola_x:
+            maquina_x -= velocidade * 0.8
+    
 
     # Verifica se a máquina saiu da tela
     if maquina_x >= largura - rect_largura:
