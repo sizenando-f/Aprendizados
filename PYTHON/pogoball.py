@@ -117,13 +117,24 @@ while True:
             player_x = largura - rect_largura
         else:
             player_x += velocidade
+    
+    if pygame.key.get_pressed()[K_a]:
+        if maquina_x <= 0:
+            maquina_x = 0
+        else:
+            maquina_x -= velocidade
+    if pygame.key.get_pressed()[K_d]:
+        if maquina_x >= largura - rect_largura:
+            maquina_x = largura - rect_largura
+        else:
+            maquina_x += velocidade
 
     # Movendo a máquina
-    if direcao_y < 0:
-        if maquina_x < bola_x:
-            maquina_x += velocidade * 0.8
-        if maquina_x > bola_x:
-            maquina_x -= velocidade * 0.8
+    # if direcao_y < 0:
+    #     if maquina_x < bola_x:
+    #         maquina_x += velocidade * 0.8
+    #     if maquina_x > bola_x:
+    #         maquina_x -= velocidade * 0.8
     
 
     # Verifica se a máquina saiu da tela
@@ -136,7 +147,7 @@ while True:
 
     # Verifica se a bola colidiu com o player
     if player.colliderect(bola):
-        direcao_y *= -1
+        direcao_y *= -1.1
         bola_y = player_y - 20
 
         # Verifica para qual direção a bola irá
@@ -147,7 +158,7 @@ while True:
     
     # Verifica se a bola colidiu com a máquina
     if maquina.colliderect(bola):
-        direcao_y *= -1
+        direcao_y *= -1.1
         bola_y = maquina_y + 40
 
         # Verifica para qual direção a bola irá
