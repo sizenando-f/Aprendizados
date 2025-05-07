@@ -86,15 +86,21 @@ while True:
     if cobra.colliderect(maca):
         x_maca = randint(0, largura - larg_maca)
         y_maca = randint(0, altura - altu_maca)
-        pontos += 1
+        pontos += 3
 
     lista_cabeca = [x_cobra, y_cobra]   # Posição da cabeça da cobra
+
+    # Para saber a cabeca colidiu com alguma parte do corpo
+    if lista_cabeca in lista_corpo:
+        print("Acabou")
+        pontos = 0
+    
     lista_corpo.append(lista_cabeca)  # Adiciona a cabeça à lista do corpo da cobra
     if len(lista_corpo) > pontos:
         del lista_corpo[0]
     desenha_corpo(lista_corpo)  # Desenha o corpo da cobra
-    
 
+    
     tela.blit(texto_formatado, (largura - 120, 20))
     
     pygame.display.update()
