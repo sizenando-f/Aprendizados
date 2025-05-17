@@ -93,6 +93,7 @@ while True:
     # Para saber a cabeca colidiu com alguma parte do corpo
     if lista_cabeca in lista_corpo:
         print("Acabou")
+        lista_corpo.clear()
         pontos = 0
     
     lista_corpo.append(lista_cabeca)  # Adiciona a cabeça à lista do corpo da cobra
