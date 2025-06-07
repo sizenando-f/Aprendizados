@@ -2,6 +2,7 @@ import pygame                   # Para o jogo
 from pygame.locals import *     # Importando funcionalidades
 from sys import exit            # Para fechar o programa
 import os                       # Para navegar pelas pastas
+from random import randrange    # Gera inteiros aleatorios
 
 # Inicializa o pygame
 pygame.init()
@@ -34,6 +35,7 @@ pygame.display.set_caption("Dino Game")
 SPRITE_SHEEET = pygame.image.load(os.path.join(DIRETORIO_IMAGENS, "dinoSpritesheet.png")).convert_alpha()
 
 # Classes
+# Dinossauro
 class Dino(pygame.sprite.Sprite):
     # Construtor
     def __init__(self):
@@ -53,9 +55,9 @@ class Dino(pygame.sprite.Sprite):
         self.indice_lista = 0
         self.image = self.imagens_dino[self.indice_lista]
 
-        # Define o retângulo da sprite e a posição que ela será colocada em pixel
+        # Define o retângulo da sprite para conseguir controlar a posição, e a posição que ela será colocada em pixel
         self.rect = self.image.get_rect()
-        self.rect.center = (100,100)
+        self.rect.center = (100,ALTURA_TELA - 90)
 
     def update(self):
             # Se chegar ao final das sprites do dino
@@ -68,14 +70,45 @@ class Dino(pygame.sprite.Sprite):
 
             # Atualiza a sprite que é mostrada, cast (int) porque índice não pode ser float
             self.image = self.imagens_dino[int(self.indice_lista)]
-            
-        
+
+#Nuvem
+class Nuvem(pygame.sprite.Sprite):
+    # Construtor
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        # Pega a imagem recortada em 32x32 na posição 7
+        self.image = SPRITE_SHEEET.subsurface((7*32,0), (32,32))
+        # Aumenta o tamanho x 3
+        self.image = pygame.transform.scale(self.image, (3*32, 3*32))
+
+        # Define o retângulo para controlar posição
+        self.rect = self.image.get_rect()
+        # Define uma posição inicial aleatório do y da nuvem, entre 0 e 200 pixel, variando de 50 em 50
+        self.rect.y = randrange(0, 200, 50)
+        # Define a posição x inicial da nuvem, entre 30 e 300 menos a largura da tela para ficar dentro da tela
+        self.rect.x = LARGURA_TELA - randrange(30, 300, 90)
+    
+    def update(self):
+        # Se passar o x [0] da posição do canto superior direito do retângulo para pela borda esquerda da tela
+        if self.rect.topright[0] < 0:
+            # Atualiza y gerando outra posição
+            self.rect.y = randrange(0, 200, 50)
+            # Atualiza x para voltar ao início da tela
+            self.rect.x = LARGURA_TELA
+
+        # Velocidade que a nuvem se move para esquerda
+        self.rect.x -= 5
 
 # Variável para agrupar todas as sprites do jogo
 TODAS_AS_SPRITES = pygame.sprite.Group()
 
-# Instãncia do dinossauro
+# Instãncias
 DINO = Dino()
+
+# Para gerar 4 nuvens
+for i in range(4):
+    NUVEM = Nuvem()
+    TODAS_AS_SPRITES.add(NUVEM)
 
 # Acrescentando no grupo de sprites
 TODAS_AS_SPRITES.add(DINO)
