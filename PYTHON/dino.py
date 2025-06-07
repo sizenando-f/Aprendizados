@@ -99,22 +99,31 @@ class Nuvem(pygame.sprite.Sprite):
         # Velocidade que a nuvem se move para esquerda
         self.rect.x -= 4
 
+# Chão
 class Chao(pygame.sprite.Sprite):
+    # Construtor
     def __init__(self, pos_x):
         pygame.sprite.Sprite.__init__(self)
+        # Pega a sprite na posição 6
         self.image = SPRITE_SHEEET.subsurface((6*32, 0), (32,32))
+        # Aumenta o tamanho em 2
         self.image = pygame.transform.scale(self.image, (2*32, 2*32))
 
+        # Pega o retângulo da imagem
         self.rect = self.image.get_rect()
+        # Posiciona y na altura - 64
         self.rect.y = ALTURA_TELA - 64
-        self.rect.x = pos_x * 64
+        # Pega o índice recebido e posiciona em x multiplicado por 64 (tamanho da imagem) para dar impressão de preenchimento
+        self.rect.x = pos_x * 64 
     
     def update(self):
+        # Se passar da tela
         if self.rect.topright[0] < 0:
+            # Reinicia
             self.rect.x = LARGURA_TELA
         
+        # Velocidade o chão
         self.rect.x -= 6
-
 
 # Variável para agrupar todas as sprites do jogo
 TODAS_AS_SPRITES = pygame.sprite.Group()
@@ -127,7 +136,8 @@ for i in range(4):
     NUVEM = Nuvem()
     TODAS_AS_SPRITES.add(NUVEM)
 
-for i in range(ALTURA_TELA*2//64):
+# Para preencher com chão, largura da tela * 2 para preencher buracos (gambiarra)
+for i in range(LARGURA_TELA*2//64):
     CHAO = Chao(i)
     TODAS_AS_SPRITES.add(CHAO)
 
