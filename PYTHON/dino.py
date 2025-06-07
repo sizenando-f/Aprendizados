@@ -57,7 +57,7 @@ class Dino(pygame.sprite.Sprite):
 
         # Define o retângulo da sprite para conseguir controlar a posição, e a posição que ela será colocada em pixel
         self.rect = self.image.get_rect()
-        self.rect.center = (100,ALTURA_TELA - 90)
+        self.rect.center = (100,ALTURA_TELA - 64)
 
     def update(self):
             # Se chegar ao final das sprites do dino
@@ -97,7 +97,24 @@ class Nuvem(pygame.sprite.Sprite):
             self.rect.x = LARGURA_TELA
 
         # Velocidade que a nuvem se move para esquerda
-        self.rect.x -= 5
+        self.rect.x -= 4
+
+class Chao(pygame.sprite.Sprite):
+    def __init__(self, pos_x):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = SPRITE_SHEEET.subsurface((6*32, 0), (32,32))
+        self.image = pygame.transform.scale(self.image, (2*32, 2*32))
+
+        self.rect = self.image.get_rect()
+        self.rect.y = ALTURA_TELA - 64
+        self.rect.x = pos_x * 64
+    
+    def update(self):
+        if self.rect.topright[0] < 0:
+            self.rect.x = LARGURA_TELA
+        
+        self.rect.x -= 6
+
 
 # Variável para agrupar todas as sprites do jogo
 TODAS_AS_SPRITES = pygame.sprite.Group()
@@ -109,6 +126,10 @@ DINO = Dino()
 for i in range(4):
     NUVEM = Nuvem()
     TODAS_AS_SPRITES.add(NUVEM)
+
+for i in range(ALTURA_TELA*2//64):
+    CHAO = Chao(i)
+    TODAS_AS_SPRITES.add(CHAO)
 
 # Acrescentando no grupo de sprites
 TODAS_AS_SPRITES.add(DINO)
